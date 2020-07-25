@@ -1,3 +1,4 @@
+using DataProcessor;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,8 @@ namespace netcore_mock_server
         {
             services.AddControllers();
             services.AddSingleton<IApplicationConfig>(Configuration.GetSection("ApplicationConfig").Get<ApplicationConfig>());
+            services.AddSingleton<ModelReaderFactory>();
+
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
