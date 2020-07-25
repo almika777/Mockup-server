@@ -1,4 +1,6 @@
-﻿namespace netcore_mock_server.Configuration
+﻿using AdditionalEntities.Enums;
+
+namespace netcore_mock_server.Configuration
 {
     public interface IApplicationConfig
     {

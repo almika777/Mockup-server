@@ -11,5 +11,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AdditionalEntities\AdditionalEntities.csproj" />
+    <ProjectReference Include="..\DataProcessor\DataProcessor.csproj" />
+  </ItemGroup>
+
 
 </Project>
