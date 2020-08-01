@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using MoveRouting.Models;
 
 namespace DataProcessor.Readers
 {
@@ -7,12 +8,13 @@ namespace DataProcessor.Readers
     {
         private static DirrectoryModelReader _dirrectoryModelReader;
 
-        public async Task<JObject> ReadAsync()
+        public Task<JObject> ReadAsync(RouteModel routeModel)
         {
             return null;
         }
 
-        public static DirrectoryModelReader Get() =>
-            _dirrectoryModelReader ??= new DirrectoryModelReader();
+        public static IModelReader Get() =>
+             _dirrectoryModelReader ??= new DirrectoryModelReader();
+
     }
 }

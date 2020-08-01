@@ -1,11 +1,11 @@
 using DataProcessor;
+using DataProcessor.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using netcore_mock_server.Configuration;
 
 namespace netcore_mock_server
 {
@@ -22,9 +22,10 @@ namespace netcore_mock_server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc().AddNewtonsoftJson();
+
             services.AddSingleton<IApplicationConfig>(Configuration.GetSection("ApplicationConfig").Get<ApplicationConfig>());
             services.AddSingleton<ModelReaderFactory>();
-
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
