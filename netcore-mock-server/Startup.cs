@@ -29,7 +29,7 @@ namespace netcore_mock_server
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                options.HttpsPort = 500001;
+                options.HttpsPort = 50001;
             });
         }
 
@@ -41,10 +41,11 @@ namespace netcore_mock_server
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<LoggerMiddleware>();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

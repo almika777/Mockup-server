@@ -3,11 +3,9 @@ using DataProcessor.Configuration;
 using DataProcessor.Readers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MoveRouting.Models;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Routing;
-using MoveRouting;
-using MoveRouting.Models;
 
 namespace netcore_mock_server.Controllers
 {

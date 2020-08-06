@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using DataProcessor.Configuration;
 using MoveRouting.Models;
 
 namespace DataProcessor.Readers
@@ -7,9 +8,12 @@ namespace DataProcessor.Readers
     public class FilesModelReader : IModelReader
     {
         private static FilesModelReader _filesModelReader;
+        private IApplicationConfig _config;
 
-        public static IModelReader Get() =>
-            _filesModelReader ??= new FilesModelReader();
+        public FilesModelReader(IApplicationConfig config)
+        {
+            _config = config;
+        }
 
         public Task<JObject> ReadAsync(RouteModel routeModel)
         {

@@ -12,9 +12,9 @@ namespace DataProcessor
             var appModel = config.ApplicationMode;
             return appModel switch
             {
-                ApplicationMode.File => FileModelReader.Get(config),
-                ApplicationMode.Files => FilesModelReader.Get(),
-                ApplicationMode.Dirrectory => DirrectoryModelReader.Get(),
+                ApplicationMode.File => new FileModelReader(config),
+                ApplicationMode.Files => new FilesModelReader(config),
+                ApplicationMode.Dirrectory => new DirrectoryModelReader(config),
                 _ => throw new ArgumentOutOfRangeException(nameof(appModel), appModel, null)
             };
         }
