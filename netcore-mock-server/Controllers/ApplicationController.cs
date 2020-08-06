@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataProcessor;
+using DataProcessor.Configuration;
+using DataProcessor.Readers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using Microsoft.Extensions.Options;
-using netcore_mock_server.Configuration;
+using MoveRouting.Models;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace netcore_mock_server.Controllers
 {
@@ -12,17 +15,17 @@ namespace netcore_mock_server.Controllers
     {
         private readonly ILogger<ApplicationController> _logger;
         private IApplicationConfig _config;
-
-        public ApplicationController(ILogger<ApplicationController> logger, IApplicationConfig config)
+        private readonly IModelReader _modelReader;
+        public ApplicationController(ILogger<ApplicationController> logger, IApplicationConfig config,
+            ModelReaderFactory modelReaderFactory)
         {
             _logger = logger;
             _config = config;
+            _modelReader = modelReaderFactory.GetModelReader(config);
         }
 
-        [HttpGet]
-        public IEnumerable<object> Get()
-        {
-            return null;
-        }
+        [HttpGet("{rootRoute}/{key?}")]
+        public async Task<JObject> Get([FromRoute] RouteModel routeModel) 
+            => await _modelReader.ReadAsync(routeModel);
     }
 }

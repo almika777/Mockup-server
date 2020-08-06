@@ -1,6 +1,6 @@
 ﻿using AdditionalEntities.Enums;
 
-namespace netcore_mock_server.Configuration
+namespace DataProcessor.Configuration
 {
     public interface IApplicationConfig
     {

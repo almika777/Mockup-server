@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using DataProcessor.Configuration;
+using MoveRouting.Models;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
 namespace DataProcessor.Readers
@@ -6,13 +8,16 @@ namespace DataProcessor.Readers
     public class DirrectoryModelReader : IModelReader
     {
         private static DirrectoryModelReader _dirrectoryModelReader;
+        private IApplicationConfig _config;
 
-        public async Task<JObject> ReadAsync()
+        public DirrectoryModelReader(IApplicationConfig config)
+        {
+            _config = config;
+        }
+
+        public Task<JObject> ReadAsync(RouteModel routeModel)
         {
             return null;
         }
-
-        public static DirrectoryModelReader Get() =>
-            _dirrectoryModelReader ??= new DirrectoryModelReader();
     }
 }
