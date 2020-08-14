@@ -22,7 +22,20 @@ PathToRootFolder: Path to your root folder with routes (```"C:\\MockServerRootFo
     "2": {
       "Id": 2,
       "Name": "testObject2"
+    },
+    "many": {
+      "1": {
+        "Id": 1,
+        "Name": "many1"
+      },
+      "2": {
+        "Id": 1,
+        "Name": "many2"
+      }
     }
   }
 }
 ```
+In dirrectory root folder you are need create file ```routes.json```, in which to prescribe the routes.
+
+#### File mode support unlimited nesting (from version 1.1.0)
