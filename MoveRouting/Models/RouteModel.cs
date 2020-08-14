@@ -2,7 +2,11 @@
 {
     public class RouteModel
     {
-        public string RootRoute { get; set; }
-        public string Key { get; set; }
+        public RouteModel(string route)
+        {
+            Route = route;
+        }
+
+        public string Route { get;  }
     }
 }

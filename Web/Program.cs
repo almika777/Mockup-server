@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace netcore_mock_server
+namespace Web
 {
     public class Program
     {

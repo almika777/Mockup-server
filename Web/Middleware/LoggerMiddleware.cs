@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace netcore_mock_server
+namespace Web.Middleware
 {
     public class LoggerMiddleware
     {
@@ -20,6 +20,7 @@ namespace netcore_mock_server
         {
             try
             {
+                _log.LogInformation(context.Request.Path.Value);
                 await _next(context);
             }
             catch (Exception ex)
