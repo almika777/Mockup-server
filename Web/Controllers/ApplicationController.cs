@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using DataProcessor;
+﻿using DataProcessor;
 using DataProcessor.Configuration;
 using DataProcessor.Readers;
 using Microsoft.AspNetCore.Mvc;
 using MoveRouting.Models;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
@@ -17,8 +17,8 @@ namespace Web.Controllers
             _modelReader = modelReaderFactory.GetModelReader(config);
         }
 
-        [HttpGet("{route}")]
-        public async Task<JObject> Get(string route)
-            => await _modelReader.ReadAsync(new RouteModel(route));
+        [HttpGet]
+        public async Task<JObject> Get([FromQuery] RouteModel model)
+            => await _modelReader.ReadAsync(model);
     }
 }
