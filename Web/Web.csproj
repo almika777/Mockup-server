@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>netcore_mock_server</RootNamespace>
+    <RootNamespace>Web</RootNamespace>
     <UserSecretsId>549f7143-9053-44d9-b77a-199142ee45f3</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

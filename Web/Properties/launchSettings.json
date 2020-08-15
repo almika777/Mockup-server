@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "netcore_mock_server": {
+    "Web": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "api",

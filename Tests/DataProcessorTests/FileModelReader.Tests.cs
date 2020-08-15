@@ -14,16 +14,14 @@ namespace DataProcessorTests
     {
         private FileModelReader _fileModelReader;
         private RouteModel _routeModel;
+
         [SetUp]
         public void Setup()
         {
-            _routeModel = new RouteModel
-            {
-                RootRoute = "getObjects"
-            };
+            _routeModel = new RouteModel("getObjects.1");
             var config = new ApplicationConfig
             {
-                PathToRootFolder = "C:\\MockServerRootFolder",
+                PathToRootFolder = @"C:\MockServerRootFolder",
                 ApplicationMode = ApplicationMode.File
             };
             _fileModelReader = new FileModelReader(config);
@@ -33,23 +31,10 @@ namespace DataProcessorTests
         public async Task ReadModelCollection()
         {
             var model = await _fileModelReader.ReadAsync(_routeModel);
-            var deserializedModel = model.ToObject<Dictionary<long, SimpleTestModel>>();
+            var deserializedModel = model.ToObject< SimpleTestModel>();
 
             Assert.IsNotNull(model);
             Assert.IsNotNull(deserializedModel);
-            Assert.IsNotNull(deserializedModel.Count(x => x.Value.Id > 0) > 0);
-        }
-
-        [Test]
-        public async Task ReadModel()
-        {
-            _routeModel.Key = "1";
-            var model = await _fileModelReader.ReadAsync(_routeModel);
-            var deserializedModel = model.ToObject<SimpleTestModel>();
-
-            Assert.IsNotNull(model);
-            Assert.IsNotNull(deserializedModel);
-            Assert.IsNotNull(deserializedModel.Id == 1);
         }
     }
 }
