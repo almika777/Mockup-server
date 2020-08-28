@@ -27,6 +27,8 @@ namespace Web
 
             services.AddSingleton<IApplicationConfig>(Configuration.GetSection("ApplicationConfig").Get<ApplicationConfig>());
             services.AddSingleton<ModelReaderFactory>();
+            services.AddSingleton<JsonFilter>();
+
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;

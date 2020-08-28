@@ -1,7 +1,7 @@
 ﻿using DataProcessor.Configuration;
-using MoveRouting.Models;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using DataProcessor.Models;
 
 namespace DataProcessor.Readers
 {
@@ -15,7 +15,7 @@ namespace DataProcessor.Readers
             _config = config;
         }
 
-        public Task<JObject> ReadAsync(RouteModel routeModel)
+        public Task<JToken> ReadAsync(RouteModel routeModel)
         {
             return null;
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,13 @@ namespace Web.Middleware
                 .Where(part => !string.IsNullOrEmpty(part))
                 .Skip(1);
 
+            var queryString = string.IsNullOrEmpty(context.Request.QueryString.ToString())
+                ? string.Empty
+                : context.Request.QueryString.ToString().Substring(1);
+
             var query = new Dictionary<string, StringValues>
             {
-                {"Query", context.Request.QueryString.ToString()},
+                {"Query",  Uri.UnescapeDataString(queryString)},
                 {"Route", string.Join(".", splitedUrl)}
             };
 
