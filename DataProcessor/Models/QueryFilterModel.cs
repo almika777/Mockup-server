@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataProcessor.Models
+﻿namespace DataProcessor.Models
 {
-    class QueryFilterModel
+    public class QueryFilterModel
     {
         public string PropertyName { get; }
         public string ComparisonMark { get; }

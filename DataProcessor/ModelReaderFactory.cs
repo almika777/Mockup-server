@@ -1,6 +1,7 @@
 ﻿using System;
 using AdditionalEntities.Enums;
 using DataProcessor.Configuration;
+using DataProcessor.JsonFilters;
 using DataProcessor.Readers;
 
 namespace DataProcessor
@@ -8,9 +9,9 @@ namespace DataProcessor
     public class ModelReaderFactory
     {
         private readonly IApplicationConfig _config;
-        private readonly JsonFilter _jsonFilter;
+        private readonly JsonArrayFilter _jsonFilter;
 
-        public ModelReaderFactory(IApplicationConfig config, JsonFilter jsonFilter)
+        public ModelReaderFactory(IApplicationConfig config, JsonArrayFilter jsonFilter)
         {
             _config = config;
             _jsonFilter = jsonFilter;

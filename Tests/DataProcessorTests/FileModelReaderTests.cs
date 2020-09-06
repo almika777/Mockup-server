@@ -1,16 +1,14 @@
 using AdditionalEntities.Enums;
 using DataProcessor.Configuration;
+using DataProcessor.Models;
 using DataProcessor.Readers;
 using DataProcessorTests.TestModels;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DataProcessor.Models;
 
 namespace DataProcessorTests
 {
-    public class Tests
+    public class FileModelReaderTests
     {
         private FileModelReader _fileModelReader;
         private RouteModel _routeModel;
@@ -18,7 +16,10 @@ namespace DataProcessorTests
         [SetUp]
         public void Setup()
         {
-            _routeModel = new RouteModel("getObjects.1");
+            _routeModel = new RouteModel
+            {
+                Route = "getObjects"
+            };
             var config = new ApplicationConfig
             {
                 PathToRootFolder = @"C:\MockServerRootFolder",
