@@ -23,19 +23,38 @@ PathToRootFolder: Path to your root folder with routes (```"C:\\MockServerRootFo
       "Id": 2,
       "Name": "testObject2"
     },
-    "many": {
-      "1": {
+    "many": [
+      {
         "Id": 1,
         "Name": "many1"
       },
-      "2": {
-        "Id": 1,
+      {
+        "Id": 2,
         "Name": "many2"
+      },
+      {
+        "Id": 3,
+        "Name": "many3"
       }
-    }
+    ]
   }
 }
 ```
 In dirrectory root folder you are need create file ```routes.json```, in which to prescribe the routes.
 
-#### File mode support unlimited nesting (from version 1.1.0)
+#### You are can write in url comparison operators. 
+Just write on url query e.g.: localhost/getObjects/many?Id>=2 and the answer will be one object from array (see example): 
+``` JSON
+{
+  "Id": 2,
+  "Name": "many2"
+},
+{
+  "Id": 3,
+  "Name": "many3"
+}
+```
+Now only array filters.
+
+Version 1.2.1 plan:
+- Add filter in query by dictionary
