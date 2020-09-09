@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,16 +18,30 @@ namespace Web.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            var url = context.Request.Path
+            UpdateContext(context);
+            await _next(context);
+        }
+
+        private static void UpdateContext(HttpContext context)
+        {
+            var splitedUrl = context.Request.Path
                 .ToUriComponent()
                 .Split('/')
                 .Where(part => !string.IsNullOrEmpty(part))
                 .Skip(1);
 
-            var path = string.Join(".", url);
-            context.Request.Path = $"/api/{path}";
+            var queryString = string.IsNullOrEmpty(context.Request.QueryString.ToString())
+                ? string.Empty
+                : context.Request.QueryString.ToString().Substring(1);
 
-            await _next(context);
+            var query = new Dictionary<string, StringValues>
+            {
+                {"Query",  Uri.UnescapeDataString(queryString)},
+                {"Route", string.Join(".", splitedUrl)}
+            };
+
+            context.Request.Path = "/api";
+            context.Request.Query = new QueryCollection(query);
         }
     }
 }
