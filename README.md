@@ -43,7 +43,7 @@ PathToRootFolder: Path to your root folder with routes (```"C:\\MockServerRootFo
 In dirrectory root folder you are need create file ```routes.json```, in which to prescribe the routes.
 
 #### You are can write in url comparison operators. 
-Just write on url query e.g.: localhost/getObjects/many?Id>=2 and the answer will be one object from array (see example): 
+Just write on url query e.g.: ```localhost/getObjects/many?Id>=2``` and the answer will be one object from array (see example): 
 ``` JSON
 {
   "Id": 2,
@@ -54,7 +54,6 @@ Just write on url query e.g.: localhost/getObjects/many?Id>=2 and the answer wil
   "Name": "many3"
 }
 ```
-Now only array filters.
 
-Version 1.2.1 plan:
+#### Version 1.2.1 plan:
 - Add filter in query by dictionary
