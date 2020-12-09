@@ -9,8 +9,6 @@ namespace DataProcessor.JsonFilters
 {
     public class JsonArrayFilter : BaseJsonFilter
     {
-        private const string Pattern = "(<=|>=|<|>|=)";
-
         public override JToken FilterToken(JToken source, RouteModel model)
         {
             var filterParams = GetFilterParams(model);

@@ -7,10 +7,8 @@ using System.Text.RegularExpressions;
 
 namespace DataProcessor.JsonFilters
 {
-    public class JsonDictionaryFilter : BaseJsonFilter
+    public class JsonDictionaryFilter : BaseJsonFilter, IJsonFilter
     {
-        private const string Pattern = "(<=|>=|<|>|=)";
-
         public override JToken FilterToken(JToken source, RouteModel model)
         {
             var filterParams = GetFilterParams(model);
