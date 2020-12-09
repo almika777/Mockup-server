@@ -1,43 +1,41 @@
-﻿using DataProcessor.Configuration;
-using DataProcessor.Models;
+﻿using Common.Models;
+using DataProcessor.Configuration;
+using DataProcessor.JsonFilters;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Threading.Tasks;
-using DataProcessor.JsonFilters;
+using Common.Enums;
 
 namespace DataProcessor.Readers
 {
     public class FileModelReader : IModelReader
     {
         private static IApplicationConfig _config;
-        private readonly JsonArrayFilter _jsonFilter;
+        private readonly FilterFactory _factory;
 
-        // ReSharper disable once InconsistentNaming
-        private const string ROUTE_FILE_NAME = "routes.json";
-
-        public FileModelReader(IApplicationConfig config, JsonArrayFilter jsonFilter = null)
+        public FileModelReader(IApplicationConfig config, FilterFactory factory)
         {
             _config = config;
-            _jsonFilter = jsonFilter;
+            _factory = factory;
         }
 
         public async Task<JToken> ReadAsync(RouteModel routeModel)
-            => GetModel(await GEtEntireModel(), routeModel);
+            => GetModel(await GetEntireModel(), routeModel);
 
         #region private
 
-        private string GetPath() =>
-            Path.Combine(_config.PathToRootFolder, ROUTE_FILE_NAME);
+        private string GetPath() => Path.Combine(_config.PathToRootFolder, _config.FileName);
 
         private JToken GetModel(JToken entireModel, RouteModel routeModel)
         {
-            var res = entireModel.SelectToken(routeModel.Route);
+            var filter = _factory.GetFilter(FilterType.Array);
+            var res = entireModel.SelectToken(routeModel.Route.ToLower());
             return !string.IsNullOrEmpty(routeModel.Query)
-                ? _jsonFilter.FilterToken(res, routeModel)
+                ? filter.FilterToken(res, routeModel)
                 : res;
-        } 
-        
-        private async Task<JObject> GEtEntireModel()
+        }
+
+        private async Task<JObject> GetEntireModel()
         {
             string jsonString;
 
@@ -46,9 +44,8 @@ namespace DataProcessor.Readers
                 jsonString = await streamReader.ReadToEndAsync();
             }
 
-            return JObject.Parse(jsonString);
+            return JObject.Parse(jsonString.ToLower());
         }
-
         #endregion private
     }
 }

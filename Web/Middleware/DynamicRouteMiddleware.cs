@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,13 +18,14 @@ namespace Web.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            UpdateContext(context);
-            await _next(context);
+            if (UpdateContext(context)) await _next(context);
         }
 
-        private static void UpdateContext(HttpContext context)
+        private static bool UpdateContext(HttpContext context)
         {
-            var splitedUrl = context.Request.Path
+            if (context.Request.Path.ToString().Contains("favicon.ico")) return false;
+
+            var processedUrl = context.Request.Path
                 .ToUriComponent()
                 .Split('/')
                 .Where(part => !string.IsNullOrEmpty(part))
@@ -37,11 +38,12 @@ namespace Web.Middleware
             var query = new Dictionary<string, StringValues>
             {
                 {"Query",  Uri.UnescapeDataString(queryString)},
-                {"Route", string.Join(".", splitedUrl)}
+                {"Route", string.Join(".", processedUrl)}
             };
 
             context.Request.Path = "/api";
             context.Request.Query = new QueryCollection(query);
+            return true;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace DataProcessor.Models
+﻿namespace Common.Models
 {
     public class RouteModel
     {

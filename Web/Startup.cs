@@ -28,7 +28,7 @@ namespace Web
 
             services.AddSingleton<IApplicationConfig>(Configuration.GetSection("ApplicationConfig").Get<ApplicationConfig>());
             services.AddSingleton<ModelReaderFactory>();
-            services.AddSingleton<JsonArrayFilter>();
+            services.AddSingleton<FilterFactory>();
 
             services.AddHttpsRedirection(options =>
             {

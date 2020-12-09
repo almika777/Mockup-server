@@ -1,17 +1,19 @@
-using AdditionalEntities.Enums;
-using DataProcessor.Configuration;
-using DataProcessor.Models;
 using DataProcessor.Readers;
 using DataProcessorTests.TestModels;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using Common.Enums;
+using Common.Models;
+using DataProcessor.Configuration;
+using DataProcessor.JsonFilters;
 
 namespace DataProcessorTests
 {
-    public class FileModelReaderTests
+    public class FileModelReaderTests : GlobalSetupTests
     {
         private FileModelReader _fileModelReader;
         private RouteModel _routeModel;
+        private ApplicationConfig _config;
 
         [SetUp]
         public void Setup()
@@ -20,12 +22,15 @@ namespace DataProcessorTests
             {
                 Route = "getObjects"
             };
-            var config = new ApplicationConfig
+
+            _config = new ApplicationConfig
             {
                 PathToRootFolder = @"C:\MockServerRootFolder",
                 ApplicationMode = ApplicationMode.File
             };
-            _fileModelReader = new FileModelReader(config);
+
+            _filterFactory = new FilterFactory();
+            _fileModelReader = new FileModelReader(_config, _filterFactory);
         }
 
         [Test]

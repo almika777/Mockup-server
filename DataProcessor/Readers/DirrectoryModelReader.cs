@@ -1,7 +1,7 @@
 ﻿using DataProcessor.Configuration;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using DataProcessor.Models;
+using Common.Models;
 
 namespace DataProcessor.Readers
 {

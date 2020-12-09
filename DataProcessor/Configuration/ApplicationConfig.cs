@@ -1,4 +1,4 @@
-﻿using AdditionalEntities.Enums;
+﻿using Common.Enums;
 
 namespace DataProcessor.Configuration
 {
@@ -6,5 +6,6 @@ namespace DataProcessor.Configuration
     {
         public ApplicationMode ApplicationMode { get; set; }
         public string PathToRootFolder { get; set; }
+        public string FileName { get; set; }
     }
 }

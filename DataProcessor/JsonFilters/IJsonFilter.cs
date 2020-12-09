@@ -1,4 +1,4 @@
-﻿using DataProcessor.Models;
+﻿using Common.Models;
 using Newtonsoft.Json.Linq;
 
 namespace DataProcessor.JsonFilters

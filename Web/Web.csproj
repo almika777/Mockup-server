@@ -15,12 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdditionalEntities\AdditionalEntities.csproj" />
+    <ProjectReference Include="..\AdditionalEntities\Common.csproj" />
     <ProjectReference Include="..\DataProcessor\DataProcessor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdditionalEntities\AdditionalEntities.csproj" />
     <ProjectReference Include="..\DataProcessor\DataProcessor.csproj" />
   </ItemGroup>
 
