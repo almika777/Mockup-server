@@ -1,9 +1,8 @@
-﻿using DataProcessor;
+﻿using Common.Models;
 using DataProcessor.Readers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using Common.Models;
 
 namespace Web.Controllers
 {
@@ -11,9 +10,9 @@ namespace Web.Controllers
     public class ApplicationController : ControllerBase
     {
         private readonly IModelReader _modelReader;
-        public ApplicationController(ModelReaderFactory modelReaderFactory)
+        public ApplicationController(IModelReader modelReader)
         {
-            _modelReader = modelReaderFactory.GetModelReader();
+            _modelReader = modelReader;
         }
 
         [HttpGet]

@@ -1,6 +1,9 @@
+using System;
+using Common.Enums;
 using DataProcessor;
 using DataProcessor.Configuration;
 using DataProcessor.JsonFilters;
+using DataProcessor.Readers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,9 +30,19 @@ namespace Web
             services.AddMvc().AddNewtonsoftJson();
 
             services.AddSingleton<IApplicationConfig>(Configuration.GetSection("ApplicationConfig").Get<ApplicationConfig>());
-            services.AddSingleton<ModelReaderFactory>();
-            services.AddSingleton<FilterFactory>();
-
+            services.AddScoped<FilterFactory>();
+            services.AddScoped<IModelReader>(x =>
+            {
+                var config = x.GetService<IApplicationConfig>();
+                var filter = x.GetService<FilterFactory>();
+                return config.ApplicationMode switch
+                {
+                    ApplicationMode.File => new FileModelReader(config, filter),
+                    ApplicationMode.Files => new FilesModelReader(config),
+                    ApplicationMode.Directory => new DirrectoryModelReader(config),
+                    _ => throw new ArgumentOutOfRangeException(nameof(config.ApplicationMode), config.ApplicationMode, null)
+                };
+            });
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
