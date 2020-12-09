@@ -1,10 +1,38 @@
-﻿using System;
+﻿using Common.Models;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DataProcessor.JsonFilters
 {
-    class JsonDictionaryFilter
+    public class JsonDictionaryFilter : BaseJsonFilter, IJsonFilter
     {
+        public override JToken FilterToken(JToken source, RouteModel model)
+        {
+            var filterParams = GetFilterParams(model);
+
+            foreach (var param in filterParams)
+            {
+                var filter = BuildEqualsFilter(param);
+                var tokens = source.SelectTokens(filter);
+                source = JToken.FromObject(tokens);
+            }
+
+            return source;
+        }
+
+        protected override IEnumerable<QueryFilterModel> GetFilterParams(RouteModel model)
+            => model.Query.Split('&').Select(x =>
+                {
+                    var arguments = Regex.Split(x, Pattern);
+                    if (arguments.Length != 3) throw new ArgumentException("Query pattern is not corrected");
+
+                    return new QueryFilterModel(arguments[0], arguments[1], arguments[2]);
+                });
+
+        private static string BuildEqualsFilter(QueryFilterModel model) =>
+            $@"[?(@{model.PropertyName}{model.ComparisonMark}{model.Value})]";
     }
 }

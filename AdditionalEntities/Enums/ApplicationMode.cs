@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace AdditionalEntities.Enums
+namespace Common.Enums
 {
     public enum ApplicationMode
     {
@@ -8,7 +8,7 @@ namespace AdditionalEntities.Enums
         File,
         [EnumMember(Value = "Files")]
         Files,
-        [EnumMember(Value = "Dirrectory")]
-        Dirrectory
+        [EnumMember(Value = "Directory")]
+        Directory
     }
 }

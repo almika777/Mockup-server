@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProcessor", "DataProcessor\DataProcessor.csproj", "{A5C14C1F-F6A9-47D2-A397-B14899C71DFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdditionalEntities", "AdditionalEntities\AdditionalEntities.csproj", "{FFC4B41C-A723-44CD-865F-1DD1EEFCB87A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "AdditionalEntities\Common.csproj", "{FFC4B41C-A723-44CD-865F-1DD1EEFCB87A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProcessorTests", "Tests\DataProcessorTests\DataProcessorTests.csproj", "{C792B9E4-75FF-4D18-8765-2BCD1A44976A}"
 EndProject

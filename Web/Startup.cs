@@ -1,6 +1,9 @@
+using System;
+using Common.Enums;
 using DataProcessor;
 using DataProcessor.Configuration;
 using DataProcessor.JsonFilters;
+using DataProcessor.Readers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,8 +30,7 @@ namespace Web
             services.AddMvc().AddNewtonsoftJson();
 
             services.AddSingleton<IApplicationConfig>(Configuration.GetSection("ApplicationConfig").Get<ApplicationConfig>());
-            services.AddSingleton<ModelReaderFactory>();
-            services.AddSingleton<JsonArrayFilter>();
+            services.AddModelReader();
 
             services.AddHttpsRedirection(options =>
             {

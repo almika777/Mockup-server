@@ -1,5 +1,5 @@
 ﻿using System;
-using AdditionalEntities.Enums;
+using Common.Enums;
 using DataProcessor.Configuration;
 using DataProcessor.JsonFilters;
 using DataProcessor.Readers;
@@ -9,12 +9,12 @@ namespace DataProcessor
     public class ModelReaderFactory
     {
         private readonly IApplicationConfig _config;
-        private readonly JsonArrayFilter _jsonFilter;
+        private readonly FilterFactory _filterFactory;
 
-        public ModelReaderFactory(IApplicationConfig config, JsonArrayFilter jsonFilter)
+        public ModelReaderFactory(IApplicationConfig config, FilterFactory filterFactory)
         {
             _config = config;
-            _jsonFilter = jsonFilter;
+            _filterFactory = filterFactory;
         }
 
         public IModelReader GetModelReader()
@@ -22,9 +22,9 @@ namespace DataProcessor
             var appModel = _config.ApplicationMode;
             return appModel switch
             {
-                ApplicationMode.File => new FileModelReader(_config, _jsonFilter),
+                ApplicationMode.File => new FileModelReader(_config, _filterFactory),
                 ApplicationMode.Files => new FilesModelReader(_config),
-                ApplicationMode.Dirrectory => new DirrectoryModelReader(_config),
+                ApplicationMode.Directory => new DirrectoryModelReader(_config),
                 _ => throw new ArgumentOutOfRangeException(nameof(appModel), appModel, null)
             };
         }
