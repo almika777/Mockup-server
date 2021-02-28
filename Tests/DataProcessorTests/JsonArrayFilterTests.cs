@@ -13,7 +13,7 @@ namespace DataProcessorTests
     class JsonArrayFilterTests : GlobalSetupTests
     {
         private FileModelReader _fileModelReader;
-        private IJsonFilter _jsonFilter;
+        private BaseJsonFilter _jsonFilter;
         private RouteModel _routeModel;
 
         [SetUp]
