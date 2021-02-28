@@ -1,22 +1,22 @@
-﻿using Common.Models;
+﻿using Common.Enums;
+using Common.Models;
 using DataProcessor.Configuration;
 using DataProcessor.JsonFilters;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Threading.Tasks;
-using Common.Enums;
 
 namespace DataProcessor.Readers
 {
     public class FileModelReader : IModelReader
     {
         private static IApplicationConfig _config;
-        private readonly FilterFactory _factory;
+        private readonly FilterFactory _filterFactory;
 
-        public FileModelReader(IApplicationConfig config, FilterFactory factory)
+        public FileModelReader(IApplicationConfig config, FilterFactory filterFactory)
         {
             _config = config;
-            _factory = factory;
+            _filterFactory = filterFactory;
         }
 
         public async Task<JToken> ReadAsync(RouteModel routeModel)
@@ -28,13 +28,18 @@ namespace DataProcessor.Readers
 
         private JToken GetModel(JToken entireModel, RouteModel routeModel)
         {
-            var filter = _factory.GetFilter(FilterType.Array);
             var res = entireModel.SelectToken(routeModel.Route.ToLower());
+            var filter = _filterFactory.GetFilter(GetFilterType(res));
+
             return !string.IsNullOrEmpty(routeModel.Query)
                 ? filter.FilterToken(res, routeModel)
                 : res;
         }
 
+        private static FilterType GetFilterType(JToken res) => res?.Type == JTokenType.Array 
+            ? FilterType.Array 
+            : FilterType.Dictionary;
+        
         private async Task<JObject> GetEntireModel()
         {
             string jsonString;
